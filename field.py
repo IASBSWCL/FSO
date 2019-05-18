@@ -32,8 +32,6 @@ class field(object):
     def __del__(self):
         print("Class deleted")
 
-    # overwriting methods = add two value in specific field size
-    # what should we do with carry
     def __add__(self, other):
         # handle this with assert
         if(self.fieldSize == other.getFieldSize()):
