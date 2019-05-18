@@ -23,7 +23,6 @@ class field(object):
             print("Unacceptable range.")
         #  return
 
-    @classmethod
     def getValue(self):
         return self.value
 
