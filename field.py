@@ -35,6 +35,7 @@ class field(object):
     # overwriting methods = add two value in specific field size
     # what should we do with carry
     def __add__(self, other):
+        # handle this with assert
         if(self.fieldSize == other.getFieldSize()):
             tempValue = (self.value + other.value) % self.fieldSize
             return field(self.fieldSize, tempValue)
@@ -59,7 +60,9 @@ class fieldArray(field):
 
     def fillRandom(self):
         for i in range(self.arraySize):
-            self.array[i] = random.random() % self.fieldSize
+            self.array[i].setValue(random.random() % self.fieldSize)
+    def fillWithSpecificDensity(self):
+        pass
 
     def density(self):
         tempCounter = 0
@@ -67,20 +70,47 @@ class fieldArray(field):
             if(self.array[i] == 0):
                 tempCounter += 1
         return tempCounter / self.arraySize
-    # override plus
 
+    def setValue(self, position, value):
+        # control the value of te position ( out of bound problem)
+        assert(position > self.arraySize), "position is bigger than the array size"
+        assert(value > self.fieldSize), "value must be bounded by field size"
+        self.array[position] = value
+
+    # override plus
+    def __add__(self, other):
+        assert(self.arraySize ==
+               other.arraySize), "array size must be eqaul which is not here!"
+        assert(self.fieldSize == other.getFieldSize()
+               ), "field size must be eqaul which is not here!"
+        tempFieldArray = fieldArray(self.arraySize, self.fieldSize)
+
+        for i in range(self.arraySize):
+            tempFieldArray.setValue(i, self.array[i] + other.array[i])
+
+        return tempFieldArray
     # override multiplication
+
     def __mul__(self, other):
-        # check the array size, They must be the same 
-        for i in range (self.arraySize):
-            pass
+        # check the array size, They must be the same
+        assert(self.arraySize ==
+               other.arraySize), "array size must be eqaul which is not here!"
+        assert(self.fieldSize == other.getFieldSize()
+               ), "field size must be eqaul which is not here!"
+        tempFieldArray = fieldArray(self.arraySize, self.fieldSize)
+
+        for i in range(self.arraySize):
+            tempFieldArray.setValue(i, self.array[i] * other.array[i])
+        return tempFieldArray
 
 
 if __name__ == "__main__":
+
+    varJ = fieldArray(10, 10)
+    varJ.fillRandom()
     varA = field(10, 7)
     varB = field(10, 5)
     varC = varA + varB
-
     varD = varA * varC
     print(varC.getValue())
     print(varD.getValue())
