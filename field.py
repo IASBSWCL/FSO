@@ -29,8 +29,8 @@ class field(object):
     def getFieldSize(self):
         return self.fieldSize
 
-    def __del__(self):
-        print("Class deleted")
+    # def __del__(self):
+    #     print("Class deleted")
 
     def __add__(self, other):
         # handle this with assert
@@ -58,7 +58,8 @@ class fieldArray(field):
 
     def fillRandom(self):
         for i in range(self.arraySize):
-            self.array[i].setValue(random.random() % self.fieldSize)
+            self.array[i].setValue(random.randint(0,self.fieldSize-1))
+
     def fillWithSpecificDensity(self):
         pass
 
@@ -69,11 +70,11 @@ class fieldArray(field):
                 tempCounter += 1
         return tempCounter / self.arraySize
 
-    def setValue(self, position, value):
+    def setValue(self, position, other):
         # control the value of te position ( out of bound problem)
-        assert(position > self.arraySize), "position is bigger than the array size"
-        assert(value > self.fieldSize), "value must be bounded by field size"
-        self.array[position] = value
+        assert(position < self.arraySize), "position is bigger than the array size"
+        assert(other.getValue() < self.fieldSize), "value must be bounded by field size"
+        self.array[position] = other.getValue()
 
     # override plus
     def __add__(self, other):
@@ -101,11 +102,23 @@ class fieldArray(field):
             tempFieldArray.setValue(i, self.array[i] * other.array[i])
         return tempFieldArray
 
+    def show(self):
+        string = "["
+        for i in range(self.arraySize):
+            string += str(self.array[i]) + ','
+        string+=']'
+
 
 if __name__ == "__main__":
 
     varJ = fieldArray(10, 10)
     varJ.fillRandom()
+
+    varK = fieldArray(10, 10)
+    varK.fillRandom()
+
+    varTest = varK * varJ
+    varTest.show()
     varA = field(10, 7)
     varB = field(10, 5)
     varC = varA + varB
