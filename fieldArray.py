@@ -14,15 +14,36 @@ class fieldArray(field):
         for i in range(self.arraySize):
             self.array[i].setValue(random.randint(0, self.fieldSize-1))
 
-    def fillWithSpecificDensity(self):
-        pass
+    def fillWithSpecificDensity(self, sparseRate):
+        self.fillRandom()
+        assert(0 <= sparseRate < 1), "Sparse rate can be in range of [0,1)"
+        # specify the specific density function here
+        numberOfZeros = self.arraySize * sparseRate
 
-    def density(self):
-        tempCounter = 0
+        # picks the "numberOfZeros" number in range of arraySize without any duplicate member
+        zeroVector = random.sample(range(self.arraySize), numberOfZeros)
+
+        for i in range(len(zeroVector)):
+            self.array[zeroVector[i]] = 0
+
+    def makeSparseWithSpecificRate(self, sparseRate):
+        assert(0 <= sparseRate < 1), "Sparse rate can be in range of [0,1)"
+        # specify the specific density function here
+        numberOfZeros = self.arraySize * sparseRate
+
+        # picks the "numberOfZeros" number in range of arraySize without any duplicate member
+        zeroVector = random.sample(range(self.arraySize), numberOfZeros)
+
+        for i in range(len(zeroVector)):
+            self.array[zeroVector[i]] = 0
+
+    def getExactDensity(self):
+        counter = 0
         for i in range(self.arraySize):
             if(self.array[i] == 0):
-                tempCounter += 1
-        return tempCounter / self.arraySize
+                counter += 1
+        assert (self.arraySize != 0), "arraySize is zero"
+        return counter/self.arraySize
 
     def setValue(self, position, other):
         # control the value of te position ( out of bound problem)
