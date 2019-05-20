@@ -1,6 +1,7 @@
 from field import field
 import random
 
+
 class fieldArray(field):
     array = []
 
@@ -11,7 +12,7 @@ class fieldArray(field):
 
     def fillRandom(self):
         for i in range(self.arraySize):
-            self.array[i].setValue(random.randint(0,self.fieldSize-1))
+            self.array[i].setValue(random.randint(0, self.fieldSize-1))
 
     def fillWithSpecificDensity(self):
         pass
@@ -26,7 +27,8 @@ class fieldArray(field):
     def setValue(self, position, other):
         # control the value of te position ( out of bound problem)
         assert(position < self.arraySize), "position is bigger than the array size"
-        assert(other.getValue() < self.fieldSize), "value must be bounded by field size"
+        assert(other.getValue() <
+               self.fieldSize), "value must be bounded by field size"
         self.array[position] = other.getValue()
 
     # override plus
@@ -35,10 +37,11 @@ class fieldArray(field):
                other.arraySize), "array size must be eqaul which is not here!"
         assert(self.fieldSize == other.getFieldSize()
                ), "field size must be eqaul which is not here!"
-        tempFieldArray = fieldArray(self.arraySize, self.fieldSize)
+        tempFieldArray = fieldArray(self.arraySize,
+                                    self.fieldSize)
 
         for i in range(self.arraySize):
-            tempFieldArray.setValue(i, self.array[i] + other.array[i])
+            tempFieldArray.array[i] = self.array[i] + other.array[i]
 
         return tempFieldArray
     # override multiplication
@@ -49,11 +52,12 @@ class fieldArray(field):
                other.arraySize), "array size must be eqaul which is not here!"
         assert(self.fieldSize == other.getFieldSize()
                ), "field size must be eqaul which is not here!"
+
         tempFieldArray = fieldArray(self.arraySize, self.fieldSize)
 
         for i in range(self.arraySize):
-            tempField= field(self.fieldSize,self.array[i] * other.array[i])
-            tempFieldArray.setValue(i,tempField)
+            tempField = self.array[i] * other.array[i]
+            tempFieldArray.array[i] = tempField
         return tempFieldArray
 
     def show(self):

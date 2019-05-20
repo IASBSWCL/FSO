@@ -3,6 +3,7 @@ import random
 
 class field(object):
     value = 0
+
     # parameterized constructor
     # default value for having multiple constructor
 
@@ -32,17 +33,17 @@ class field(object):
     # def __del__(self):
     #     print("Class deleted")
 
+    # override function
     def __add__(self, other):
         # handle this with assert
-        if(self.fieldSize == other.getFieldSize()):
-            tempValue = (self.value + other.value) % self.fieldSize
-            return field(self.fieldSize, tempValue)
-        else:
-            print("To add two different value their filed size must be the same.")
+        assert(self.fieldSize == other.getFieldSize()
+               ), "To add two different value their filed size must be the same."
+        tempValue = (self.value + other.value) % self.fieldSize
+        return field(self.fieldSize, tempValue)
 
     def __mul__(self, other):
-        if(self.fieldSize == other.getFieldSize()):
-            tempValue = (self.value * other.value) % self.fieldSize
-            return field(self.fieldSize, tempValue)
-        else:
-            print("To add two different value their filed size must be the same.")
+        # handle this with assert
+        assert(self.fieldSize == other.getFieldSize()
+               ), "To add two different value their filed size must be the same."
+        tempValue = (self.value * other.value) % self.fieldSize
+        return field(self.fieldSize, tempValue)
