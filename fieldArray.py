@@ -52,6 +52,7 @@ class fieldArray(field):
                self.fieldSize), "value must be bounded by field size"
         self.array[position] = other.getValue()
 
+
     # override plus
     def __add__(self, other):
         assert(self.arraySize ==
@@ -65,8 +66,8 @@ class fieldArray(field):
             tempFieldArray.array[i] = self.array[i] + other.array[i]
 
         return tempFieldArray
+   
     # override multiplication
-
     def __mul__(self, other):
         # check the array size, They must be the same
         assert(self.arraySize ==
