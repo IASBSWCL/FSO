@@ -19,10 +19,10 @@ def most_frequent(List):
 
 if __name__ == "__main__":
 
-    ARRAY_SIZE = 20
-    FIELD_SIZE = 2
+    ARRAY_SIZE = 100
+    FIELD_SIZE = 10000
 
-    EXAMINATION_NUMBER = 1000
+    EXAMINATION_NUMBER = 10000
     zeroExpected = 0
     frequentExpected = 0
     print(len([2,1,2]))
@@ -35,7 +35,7 @@ if __name__ == "__main__":
         mostFrequentItem , frequencyPercentage = most_frequent(varJ.giveArraySimpleForm())
         frequentExpected += frequencyPercentage
         # print(most_frequent(varJ.giveArraySimpleForm()))
-        print("Density is equal to: ", varJ.getExactDensity())
+        # print("Density is equal to: ", varJ.getExactDensity())
 
     print("Expected zero Value :", (zeroExpected / EXAMINATION_NUMBER)*100,"%")
     print("Ordinary zero Chance :", (1 / FIELD_SIZE)*100,"%")
