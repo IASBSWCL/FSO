@@ -40,7 +40,7 @@ class fieldArray(field):
     def getExactDensity(self):
         counter = 0
         for i in range(self.arraySize):
-            if(self.array[i] == 0):
+            if(self.array[i].getValue() == 0):
                 counter += 1
         assert (self.arraySize != 0), "arraySize is zero"
         return counter/self.arraySize
@@ -52,8 +52,8 @@ class fieldArray(field):
                self.fieldSize), "value must be bounded by field size"
         self.array[position] = other.getValue()
 
-
     # override plus
+
     def __add__(self, other):
         assert(self.arraySize ==
                other.arraySize), "array size must be eqaul which is not here!"
@@ -66,7 +66,7 @@ class fieldArray(field):
             tempFieldArray.array[i] = self.array[i] + other.array[i]
 
         return tempFieldArray
-   
+
     # override multiplication
     def __mul__(self, other):
         # check the array size, They must be the same
@@ -89,6 +89,14 @@ class fieldArray(field):
 
         string += str(self.array[self.arraySize - 1].getValue()) + ']'
         print(string)
+
+    def giveArraySimpleForm(self):
+        tempList = []
+        ''' return coefficient as an simple array'''
+        for i in range(self.arraySize):
+            tempList.append(self.array[i].getValue())
+        return tempList
+
 
 
 if __name__ == "__main__":
